@@ -68,6 +68,41 @@ async def on_ready():
     print(f"ONLINE: {bot.user} | Server ID: {GUILD_ID}")
 
 
+@bot.event
+async def on_message(message: discord.Message):
+    # Ignore messages sent by the bot itself or other bots
+    if message.author == bot.user or message.author.bot:
+        return
+
+    # Reply if the bot is @mentioned
+    if bot.user in message.mentions:
+        # Strip out the mention tag
+        clean_text = message.clean_content.replace(f"@{bot.user.display_name}", "").strip()
+        if not clean_text:
+            await message.reply("Hello! How can I assist you? You can also use `/agent` or `/help`.")
+            return
+
+        async with message.channel.typing():
+            try:
+                answer = await ask_groq(
+                    "You are a concise, helpful, and friendly workshop AI assistant. "
+                    "Explain technical topics clearly. Never claim you performed actions "
+                    "outside the given tools or context.",
+                    clean_text[:3500],
+                    tokens=850,
+                )
+                if len(answer) <= 1850:
+                    await message.reply(answer, allowed_mentions=discord.AllowedMentions.none())
+                else:
+                    report = discord.File(io.BytesIO(answer.encode("utf-8")), "agent_answer.txt")
+                    await message.reply("The answer is attached as a text file.", file=report)
+            except Exception as error:
+                print("on_message error:", type(error).__name__, str(error)[:250])
+                await message.reply("AI request failed. Please check Groq API limits.")
+
+    await bot.process_commands(message)
+
+
 async def ask_groq(system_message: str, user_message: str, tokens: int = 700) -> str:
     kwargs = {
         "model": MODEL,
