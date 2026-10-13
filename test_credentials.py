@@ -59,15 +59,20 @@ async def test_discord(token: str, guild_id: int):
     success = False
     message = ""
 
+    ready_event = asyncio.Event()
+
+    @client.event
+    async def on_ready():
+        ready_event.set()
+
     try:
         # Connect briefly to verify token and guild
         login_task = asyncio.create_task(client.start(token))
 
-        # Wait for ready with timeout
-        for _ in range(50):
-            await asyncio.sleep(0.1)
-            if client.is_ready():
-                break
+        try:
+            await asyncio.wait_for(ready_event.wait(), timeout=15.0)
+        except asyncio.TimeoutError:
+            pass
 
         if client.is_ready():
             guild = client.get_guild(guild_id)
@@ -79,7 +84,7 @@ async def test_discord(token: str, guild_id: int):
                 message = f"Connected as {client.user}, but Guild ID {guild_id} was NOT found in the bot's server list. Make sure the bot is invited to this server!"
         else:
             success = False
-            message = "Client did not reach ready state in time."
+            message = "Client did not reach ready state in time (15s timeout)."
 
         await client.close()
         login_task.cancel()
