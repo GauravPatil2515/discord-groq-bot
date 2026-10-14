@@ -28,6 +28,10 @@ Unlike typical sluggish bots that suffer from Discord gateway timeouts, this bot
 
 ## 🏗️ 3-Tier Architecture
 
+<div align="center">
+  <img src="docs/images/architecture.jpg" alt="Discord AI Agent 3-Tier Architecture" width="850"/>
+</div>
+
 ```
 [ Discord User ]
       │  Types slash command (/agent, /summary, /ping, /help)

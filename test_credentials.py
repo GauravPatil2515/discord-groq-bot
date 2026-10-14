@@ -69,10 +69,8 @@ async def test_discord(token: str, guild_id: int):
         # Connect briefly to verify token and guild
         login_task = asyncio.create_task(client.start(token))
 
-        try:
+        with contextlib.suppress(asyncio.TimeoutError):
             await asyncio.wait_for(ready_event.wait(), timeout=15.0)
-        except asyncio.TimeoutError:
-            pass
 
         if client.is_ready():
             guild = client.get_guild(guild_id)
