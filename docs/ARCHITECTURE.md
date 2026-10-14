@@ -6,6 +6,10 @@ This document outlines the architectural blueprints, data flow diagrams, concurr
 
 ## 1. High-Level Architecture Overview
 
+<div align="center">
+  <img src="images/system_architecture.png" alt="Discord AI Agent Technical Blueprint" width="950"/>
+</div>
+
 The system is structured as an event-driven, 3-tier architecture:
 
 ```mermaid

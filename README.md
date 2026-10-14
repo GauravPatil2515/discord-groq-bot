@@ -26,10 +26,10 @@ Unlike typical sluggish bots that suffer from Discord gateway timeouts, this bot
 
 ---
 
-## 🏗️ 3-Tier Architecture
+## 🏗️ System Architecture & Data Flow
 
 <div align="center">
-  <img src="docs/images/architecture.jpg" alt="Discord AI Agent 3-Tier Architecture" width="850"/>
+  <img src="docs/images/system_architecture.png" alt="Discord AI Agent System Architecture & Data Flow" width="950"/>
 </div>
 
 ```
