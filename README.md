@@ -166,24 +166,6 @@ Ideal for presentations, interactive workshops, and quick testing without instal
 
 ---
 
-### Option 3: Docker & Docker Compose
-
-Deploy easily on any Linux VPS (Render, Railway, Fly.io, DigitalOcean):
-
-```bash
-# 1. Fill in .env
-cp .env.example .env
-
-# 2. Build and launch container in background
-make docker-up
-# or: docker compose up -d --build
-
-# 3. View live logs
-docker compose logs -f
-```
-
----
-
 ## 🧪 Testing & Code Quality
 
 The project includes unit tests for configuration parsing, buffer limits, and sanitization logic:

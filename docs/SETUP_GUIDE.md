@@ -118,24 +118,4 @@ This guide walks you through every configuration step required to launch your bo
    python bot.py
    ```
 
----
 
-### Option C: Running with Docker / Docker Compose
-
-1. Configure `.env` with your credentials:
-   ```bash
-   cp .env.example .env
-   # Edit .env with your keys
-   ```
-2. Launch using Docker Compose:
-   ```bash
-   docker compose up -d --build
-   ```
-3. View runtime logs:
-   ```bash
-   docker compose logs -f
-   ```
-4. Stop the container:
-   ```bash
-   docker compose down
-   ```
